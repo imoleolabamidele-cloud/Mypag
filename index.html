@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0b0b">
+<meta name="description" content="Tell us about yourself and create a beautiful personal website with AI.">
+<title>mypag — Your story, beautifully told.</title>
+
+<link rel="icon" href="logo.png" type="image/png">
+
+<style>
+:root {
+    --bg: #0b0b0b;
+    --surface: #141414;
+    --surface-light: #1c1c1c;
+    --orange: #ff7900;
+    --orange-hover: #ff963d;
+    --white: #ffffff;
+    --muted: #929292;
+    --border: rgba(255,255,255,.09);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--white);
+    font-family: Inter, -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+button, textarea, input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+header {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 27px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 21px;
+    font-weight: 750;
+    letter-spacing: -.8px;
+}
+
+.brand img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.brand span {
+    color: var(--orange);
+}
+
+.header-note {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+main {
+    width: 100%;
+    max-width: 850px;
+    margin: auto;
+    padding: 70px 24px 100px;
+    text-align: center;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border: 1px solid rgba(255,121,0,.22);
+    border-radius: 50px;
+    background: rgba(255,121,0,.07);
+    color: #ffad69;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 27px;
+}
+
+.badge-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--orange);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--orange);
+}
+
+h1 {
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: clamp(39px, 7vw, 68px);
+    line-height: 1.08;
+    letter-spacing: -3.5px;
+    font-weight: 800;
+}
+
+h1 span {
+    color: var(--orange);
+}
+
+.subtitle {
+    max-width: 520px;
+    margin: 22px auto 42px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.generator {
+    width: 100%;
+    max-width: 690px;
+    margin: auto;
+    text-align: left;
+}
+
+.input-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 19px;
+    padding: 22px;
+    transition: border-color .25s, box-shadow .25s;
+}
+
+.input-card:focus-within {
+    border-color: rgba(255,121,0,.55);
+    box-shadow: 0 0 0 4px rgba(255,121,0,.06);
+}
+
+.input-label {
+    display: block;
+    color: #e8e8e8;
+    font-size: 13px;
+    font-weight: 650;
+    margin-bottom: 14px;
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.typing-indicator span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    animation: typing 1.2s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: .15s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: .3s;
+}
+
+@keyframes typing {
+    0%, 60%, 100% {
+        opacity: .35;
+        transform: translateY(0);
+    }
+    30% {
+        opacity: 1;
+        transform: translateY(-4px);
+    }
+}
+
+textarea {
+    width: 100%;
+    min-height: 145px;
+    resize: vertical;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: white;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+textarea::placeholder {
+    color: #666;
+}
+
+.input-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    color: #777;
+    font-size: 11px;
+}
+
+.social-section {
+    margin-top: 19px;
+    padding: 19px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    text-align: left;
+}
+
+.social-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 9px;
+}
+
+.social-heading label {
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.optional {
+    color: #777;
+    font-size: 11px;
+}
+
+.social-input {
+    width: 100%;
+    padding: 11px 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: white;
+    font-size: 14px;
+}
+
+.social-input::placeholder {
+    color: #666;
+}
+
+.social-hint {
+    margin-top: 7px;
+    color: #777;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.generate-button {
+    width: 100%;
+    min-height: 58px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    border-radius: 13px;
+    background: var(--orange);
+    color: #111;
+    font-size: 15px;
+    font-weight: 750;
+    transition: background .2s, transform .2s;
+}
+
+.generate-button:hover {
+    background: var(--orange-hover);
+    transform: translateY(-2px);
+}
+
+.generate-button:disabled {
+    opacity: .65;
+    cursor: wait;
+    transform: none;
+}
+
+.generate-button svg {
+    width: 19px;
+    height: 19px;
+}
+
+.status {
+    min-height: 22px;
+    margin-top: 13px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.status.error {
+    color: #ff7777;
+}
+
+.status.success {
+    color: #7bd99b;
+}
+
+footer {
+    width: 100%;
+    padding: 25px;
+    border-top: 1px solid rgba(255,255,255,.06);
+    text-align: center;
+    color: #666;
+    font-size: 12px;
+}
+
+footer span {
+    color: var(--orange);
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 21px 19px;
+    }
+
+    .header-note {
+        font-size: 11px;
+    }
+
+    main {
+        padding: 65px 18px 75px;
+    }
+
+    h1 {
+        letter-spacing: -2px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        margin: 18px auto 32px;
+    }
+
+    .input-card {
+        padding: 17px;
+    }
+
+    .social-section {
+        padding: 17px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+    <a href="/" class="brand" aria-label="mypage homepage">
+        <img src="logo.png" alt="mypage logo">
+        <div>my<span>page</span></div>
+    </a>
+
+    <div class="header-note">Your own corner of the internet.</div>
+</header>
+
+<main>
+
+    <div class="bdge">
+        <span class="bdge-dot"></span>
+    </div>
+
+    <h1>
+        Tell me about you and I'll generate a
+        <span>beautiful page</span> for you.
+    </h1>
+
+    <p class="subtitle">
+        Your personality, your story, your style.
+        Just tell us about yourself and let AI turn
+        your ideas into a beautiful personal website.
+    </p>
+
+    <form class="generator" id="generatorForm">
+
+        <div class="input-card">
+
+            <label class="input-label" for="description">
+                Tell me about yourself
+            </label>
+
+            <div class="typing-indicator" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <textarea
+                id="description"
+                name="description"
+                maxlength="5000"
+                required
+                placeholder="Hi! My name is Alex. I'm a designer and creative thinker who loves building beautiful things. I want my website to show my personality, my work and what I do..."
+            ></textarea>
+
+            <div class="input-footer">
+                <span>Write naturally. Be yourself.</span>
+                <span id="characterCount">0 / 5000</span>
+            </div>
+
+        </div>
+
+        <div class="social-section">
+
+            <div class="social-heading">
+                <label for="socialLinks">Your social links</label>
+                <span class="optional">OPTIONAL</span>
+            </div>
+
+            <input
+                class="social-input"
+                id="socialLinks"
+                name="socialLinks"
+                type="text"
+                maxlength="2000"
+                placeholder="https://instagram.com/you, https://linkedin.com/in/you"
+                autocomplete="url"
+            >
+
+            <p class="social-hint">
+                Separate each link with a comma (,). You can add
+                Instagram, TikTok, LinkedIn, X, GitHub or any
+                other social profile.
+            </p>
+
+        </div>
+
+        <button class="generate-button" id="generateButton" type="submit">
+            <span>Create my beautiful page</span>
+
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+            </svg>
+        </button>
+
+        <div class="status" id="status" role="status"
+             aria-live="polite"></div>
+
+    </form>
+
+</main>
+
+<footer>
+    Made for your story. <span>Made with imagination.</span>
+</footer>
+<script>
+(() => {
+    "use strict";
+
+    const form = document.getElementById("generatorForm");
+    const description = document.getElementById("description");
+    const socialInput = document.getElementById("socialLinks");
+    const characterCount = document.getElementById("characterCount");
+    const button = document.getElementById("generateButton");
+    const status = document.getElementById("status");
+
+    const MAX_DESCRIPTION_LENGTH = 5000;
+    const MAX_SOCIAL_LINKS = 20;
+
+    description.addEventListener("input", () => {
+        characterCount.textContent =
+            `${description.value.length} / ${MAX_DESCRIPTION_LENGTH}`;
+    });
+
+    function showStatus(message, type = "") {
+        status.textContent = message;
+        status.className = "status";
+
+        if (type) {
+            status.classList.add(type);
+        }
+    }
+
+    function parseSocialLinks(value) {
+        const entries = value
+            .split(",")
+            .map(item => item.trim())
+            .filter(Boolean);
+
+        if (entries.length > MAX_SOCIAL_LINKS) {
+            throw new Error(
+                `Please provide no more than ${MAX_SOCIAL_LINKS} social links.`
+            );
+        }
+
+        const links = [];
+
+        for (const entry of entries) {
+            let url;
+
+            try {
+                url = new URL(entry);
+            } catch {
+                throw new Error(
+                    `This social link is not a valid URL: ${entry}`
+                );
+            }
+
+            if (!["http:", "https:"].includes(url.protocol)) {
+                throw new Error("Social links must use HTTP or HTTPS.");
+            }
+
+            links.push(url.href);
+        }
+
+        return [...new Set(links)];
+    }
+
+    function setLoading(isLoading) {
+        button.disabled = isLoading;
+
+        button.querySelector("span").textContent = isLoading
+            ? "Creating your page..."
+            : "Create my beautiful page";
+    }
+
+    form.addEventListener("submit", async event => {
+        event.preventDefault();
+
+        const about = description.value.trim();
+
+        if (about.length < 20) {
+            showStatus(
+                "Tell us a little more about yourself (at least 20 characters).",
+                "error"
+            );
+            description.focus();
+            return;
+        }
+
+        if (about.length > MAX_DESCRIPTION_LENGTH) {
+            showStatus("Your description is too long.", "error");
+            return;
+        }
+
+        let socialLinks;
+
+        try {
+            socialLinks = parseSocialLinks(socialInput.value);
+        } catch (error) {
+            showStatus(error.message, "error");
+            socialInput.focus();
+            return;
+        }
+
+        setLoading(true);
+        showStatus("Preparing your idea for AI...");
+
+        try {
+            const response = await fetch("/api/generate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    description: about,
+                    socialLinks
+                })
+            });
+
+            let result;
+
+            try {
+                result = await response.json();
+            } catch {
+                throw new Error(
+                    "The server returned an invalid response. Please try again."
+                );
+            }
+
+            if (!response.ok) {
+                throw new Error(
+                    result.error || "We couldn't generate your page. Please try again."
+                );
+            }
+
+            if (
+                typeof result.previewUrl !== "string" ||
+                !result.previewUrl.startsWith("/")
+            ) {
+                throw new Error("The server returned an invalid preview address.");
+            }
+
+            showStatus("Your page is ready! Opening your preview...", "success");
+
+            window.location.assign(result.previewUrl);
+
+        } catch (error) {
+            showStatus(
+                error.message || "Something went wrong. Please try again.",
+                "error"
+            );
+        } finally {
+            setLoading(false);
+        }
+    });
+})();
+</script>
+</div>
+</body>
+</html>
